@@ -16,13 +16,12 @@ public class JpaMain {
 		transaction.begin();
 
 		try {
-			//영속
-			Member member1 = new Member(1L, "12345678");
-			entityManager.persist(member1);
-			System.out.println("=======");
+			Member member = new Member();
+			member.setId(4L);
+			member.setName("D");
+			member.setRoleType(RoleType.USER);
 
-			Member member2 = entityManager.find(Member.class, 1L);
-			System.out.println("member2 = " + member2.toString());
+			entityManager.persist(member);
 
 			transaction.commit();
 		} catch (Exception e) {

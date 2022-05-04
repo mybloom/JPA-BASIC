@@ -183,7 +183,7 @@ List<Member> members = entityManager.createQuery("select m from Member as m", Me
 - 기본 키 매핑
 - 연관관계 매핑 : @ManyToOne , @JoinColumn
 
-> 객체와 테이블 매핑
+### 객체와 테이블 매핑
  - @Entity(name = "Member") //다른 패키지에 같은 객체가 있을 때나 사용
 
 
@@ -218,6 +218,24 @@ List<Member> members = entityManager.createQuery("select m from Member as m", Me
   private String name;
 ```
 
+### 필드와 컬럼 매핑
+
+- @Transient : db 컬럼으로는 생성되지 않고 메모리에서만 사용하는 속성
+
+> @Column
+- nullable : not null
+- insertable, update = false : 등록/수정이 되지 않게 한다.
+- unique는 잘안쓴다. alter table시 constraint 이름이 이상하게 잡혀서.
+  - 대신, @Table(uniqueConstraint = ) 로 이름지정해서 사용한다.
+- 자바 ENUM 매핑할 때 `@Enumerated(EnumType.STRING)`를 꼭 사용해야 한다. 그러지 않으면 속성 추가 할 때 데이터 꼬인다.
+
+> @Temporal
+- LocalData, LocalDataTime을 사용할 때는 생략 가능 : 최신 하이버네이트 지원
+- Date등의 옛날 컬럼 사용할 때만 해당 애노테이션 사용
+
+> @Lob
+- clob
+- blob
 
 
 
