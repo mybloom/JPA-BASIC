@@ -22,12 +22,6 @@ public class JpaMain {
 			member1.setUserName("member1");
 			entityManager.persist(member1);
 
-			Team team = new Team();
-			team.setName("TeamA");
-			team.getMembers().add(member1);
-
-			entityManager.persist(team);
-
 			transaction.commit();
 		} catch (Exception e) {
 			e.printStackTrace();

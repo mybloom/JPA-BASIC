@@ -13,6 +13,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -35,4 +36,8 @@ public class Member {
 
 	@Column(name = "USER_NAME")
 	private String userName;
+
+	@OneToOne
+	@JoinColumn(name="LOCKER_ID")
+	private Locker locker;
 }
