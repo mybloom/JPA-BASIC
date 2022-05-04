@@ -84,3 +84,19 @@ DB는 양쪽관계 참조가 가능하지만 , 객체는 한 방향으로 참조
  <property name="hibernate.dialect" value="org.hibernate.dialect.H2Dialect"/>
 ```
 
+### 간단하게 JPA 실행해보기 
+
+- 문제 : unknown entity라는 에러로 JPA까지 가기 전에 엔티티로 인식하지 못하고 실행되지 않았다.
+- 김영한님 답변 
+  - 인프런에 같은 문제로 올린 답변 참고
+  - 빌드 환경(gradle빌드)에 따라서 클래스 인식이 자동으로 안되는 경우도 있습니다.    
+  따라서 이때는 persistence.xml에 다음과 같이 <class></class>로 엔티티를 추가해주세요.
+  - 보통 스프링과 함께 JPA를 사용하게 됩니다. 스프링과 함께 사용하면 `자동으로 엔티티를 스캔`하는 기능이 내장되어 있어서 이런 추가 설정없이 잘 동작합니다.
+  지금처럼 순수 JPA를 학습할 때만 이렇게 클래스를 추가하는게 빌드 환경에 따라 필요할 수 있습니다
+  ```xml
+  <persistence-unit name="hello">
+       <class>hellojpa.Member</class>
+       <properties>
+  ```
+
+> 트랜잭션
