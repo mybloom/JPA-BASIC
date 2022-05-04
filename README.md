@@ -301,5 +301,39 @@ List<Member> members = entityManager.createQuery("select m from Member as m", Me
 	private Team team;
 ```
 
+### [중요] 양방향 연관관계의 주인
+
+> 객체와 테이블이 관계를 맺는 차이
+- 객체의 양방향은, 단방향 연관관계가 2개 있는 것이다.
+- 테이블은 외래키 하나로 양쪽으로 방향을 가질 수 있다.
+```sql
+select m.*, t.*
+from member m
+join team t 
+on m.team_id = t.team_id;
+
+select * 
+from team t
+join member m
+on t.team_id = m.team_id;
+```
+
+> 객체의 양방향, 단방향이 2개 
+- 위의 예시로 team_id가 변경되었을 때, `Team team`과 `List Member` 중 어떤 것을 수정해야 할까?
+  - Member: id, `Team team`, username
+  - Team : id, name, `List Member`
+- 그래서 연관관계의 주인을 정해야 한다.
+- 연관관계의 주인만이 외래키를 관리할 수 있다. 관리한다는 것은 등록/수정 할 수 있다는 것이다.
+- 주인이 아닌 쪽은 `읽기만` 가능하다!
+  - Team객체를 등록/수정할 때 Member객체가 변경되면 안된다.
+- **주인이 아닌 것을 지정해주는 것이 `mappedBy`**
+  ```java
+    @OneToMany(mappedBy = "team")
+    private List<Member> members = new ArrayList<>();
+  ```
+- **외래키가 있는 곳을 주인으로 정한다!**
+  - 객체간 방향에서 주인이, 비지니스적으로 주인은 아니다. 
+
+
 
 
