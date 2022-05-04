@@ -26,7 +26,7 @@ public class JpaMain {
 			member1.setTeam(team);
 			entityManager.persist(member1);
 
-			team.getMembers().add(member1); //주인이 아닌쪽에도 데이터를 셋팅해줘야 35번 라인에서 값을 가져올 수 있다.
+//			team.getMembers().add(member1); //주인이 아닌쪽에도 데이터를 셋팅해줘야 35번 라인에서 값을 가져올 수 있다.
 
 //			entityManager.flush();
 //			entityManager.clear();
