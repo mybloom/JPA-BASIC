@@ -21,6 +21,7 @@ public class JpaMain {
 			member.setRoleType(RoleType.USER);
 
 			entityManager.persist(member);
+			System.out.println("=================================");
 
 			transaction.commit();
 		} catch (Exception e) {
