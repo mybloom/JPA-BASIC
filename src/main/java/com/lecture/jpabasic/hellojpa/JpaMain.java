@@ -20,7 +20,9 @@ public class JpaMain {
 			member.setName("A");
 			member.setRoleType(RoleType.USER);
 
+			System.out.println("=================================");
 			entityManager.persist(member);
+			System.out.println("member.id = " + member.getId());
 			System.out.println("=================================");
 
 			transaction.commit();

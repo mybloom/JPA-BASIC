@@ -245,6 +245,17 @@ List<Member> members = entityManager.createQuery("select m from Member as m", Me
   - SEQUENCE : 하이버네이트 시퀀스 전략
 
 ### IDENTITY 전략
+- DB에 들어가야 PK인 ID값이 생기는데 , 영속성 컨텍스트는 무조건 PK값이 있어야 한다. 
+- 그러면 아직 DB에 들어가지 않은 영속성 컨텍스트에서는 어떻게 해야할까?
+- IDENTITY 전략에서만 `예외적으로 persist()호출 시점`에 db에 `insert 쿼리`를 날린다.
+- persiont() 때 DB에 쿼리를 날린다고해서, 성능에 큰 차이는 없다
+
+### SEQUENCE 전략
+- allocationSize = 50 : 기본은 50으로 되어 있다.
+- 메모리에서는 50개 쌓여도 된다.
+- `call next value for MEMBER_SEQ` 를 50개 쌓일 때까지 안해도 된다.
+- 여러 웹서버가 있어도 동시성 문제 없이 작동된다.
+
 
 
 
