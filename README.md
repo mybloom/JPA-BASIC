@@ -113,4 +113,8 @@ List<Member> members = entityManager.createQuery("select m from Member as m", Me
 				.getResultList();
 ```
 - 어떤 장점이 있을까?
-  - 
+  - 방언에 맞춰서 paging처리 쿼리 생성해준다.
+  - 애플리케이션 필요한 데이터만 db에서 불러오려면 결국 검색 조건이 포함된 sql이 필요하다. 
+  - 검색조건을 줄 때 db 방언에 맞춰서 쿼리를 생성해주며, 객체 단위를 가져오게 된다.
+  - **객체 지향 sql이다.**
+
