@@ -160,12 +160,11 @@ List<Member> members = entityManager.createQuery("select m from Member as m", Me
 > 플러시 발생
 - 영속성 컨텍스트의 변경 내용을 데이터베이스에 반영
 - 트랜잭션 작동하면 플러시가 자동 발생한다.
+- flush()해도 영속성 컨텍스트에서 사라지는 것이 아니다. db에 반영만 된다.
 
 1. entityManager.flush() 호출
 2. commit() 시 자동 호출
 3. JPQL 실행시 자동 호출
-
-- flush()해도 영속성 컨텍스트에서 사라지는 것이 아니다. db에 반영만 된다.
 
 > 플러시 옵션
 - 대부분 Auto로 놓고 사용 : 커밋이나 쿼리를 실행할 때 플러시
@@ -175,6 +174,9 @@ List<Member> members = entityManager.createQuery("select m from Member as m", Me
 
 - em.detach(entity);
 - em.clear();
+
+## chap5 엔티티 매핑
+
 
  
 
