@@ -17,26 +17,16 @@ public class JpaMain {
 		transaction.begin();
 
 		try {
-			Team team = new Team();
-			team.setName("TeamA");
-			entityManager.persist(team);
 
 			Member member1 = new Member();
 			member1.setUserName("member1");
-			member1.setTeam(team);
 			entityManager.persist(member1);
 
-//			team.getMembers().add(member1); //주인이 아닌쪽에도 데이터를 셋팅해줘야 35번 라인에서 값을 가져올 수 있다.
+			Team team = new Team();
+			team.setName("TeamA");
+			team.getMembers().add(member1);
 
-//			entityManager.flush();
-//			entityManager.clear();
-
-			Team findTeam = entityManager.find(Team.class, team.getId());
-			List<Member> members = findTeam.getMembers();
-
-			for (Member member : members) {
-				System.out.println("m = " + member.getUserName());
-			}
+			entityManager.persist(team);
 
 			transaction.commit();
 		} catch (Exception e) {

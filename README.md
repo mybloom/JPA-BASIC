@@ -388,6 +388,47 @@ try {
 - 비지니스 로직을 기준으로 연관관계 주인을 선택하면 안된다.
 - 외래키의 위치를 기준으로 연관관계 주인을 정해야 한다.
 
+---
+
+## chap7 다양한 연관관계 매핑
+
+> 단방향, 양방향
+- 객체
+  - 참조용 필드가 있는 쪽으로만 참조 가능 
+
+> 다대일 N:1
+- 다대일 단방향
+- 다대일 양방향 
+  - 주인이 아닌쪽에 List<객체명> = new ArrayList<>();
+  - @OneToMany(mappedBy = "")
+
+> 일대다 1:N
+- 실무에서 이 모델은 거의 지원하지 않는다. 
+- Team 엔티티를 수정했는데 Member 테이블이 변경되므로 사용하지 않는다. 
+- 이렇게 사용하려면 `다대일 양방향`으로 관계를 맺도록 한다.
+```java
+	@OneToMany
+	@JoinColumn(name = "TEAM_ID") //이거 꼭 사용해야 함. 그렇지 않으면 조인 테이블(중간테이블) 방식 사용
+	private List<Member> members = new ArrayList<>();
+```
+
+- member의 update 쿼리가 발생한다.
+```java
+Member member1 = new Member();
+			member1.setUserName("member1");
+			entityManager.persist(member1);
+
+			Team team = new Team();
+			team.setName("TeamA");
+			team.getMembers().add(member1);
+
+			entityManager.persist(team); //member의 update 쿼리를 발생시킴
+
+			transaction.commit();
+```
+- 일대다 양방향도 공식지원은 아니지만 할수는 있다. (굳이 사용할 필요 없음)
+
+
 
   
 

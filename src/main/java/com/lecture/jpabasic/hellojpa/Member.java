@@ -23,6 +23,7 @@ import lombok.Setter;
 
 @Entity
 @Getter
+@Setter
 @AllArgsConstructor
 @NoArgsConstructor
 public class Member {
@@ -34,21 +35,4 @@ public class Member {
 
 	@Column(name = "USER_NAME")
 	private String userName;
-
-	@ManyToOne
-	@JoinColumn(name = "TEAM_ID")
-	private Team team;
-
-	public void setId(Long id) {
-		this.id = id;
-	}
-
-	public void setUserName(String userName) {
-		this.userName = userName;
-	}
-
-	public void setTeam(Team team) {
-		this.team = team;
-		team.getMembers().add(this);
-	}
 }
