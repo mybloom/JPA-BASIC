@@ -25,6 +25,9 @@ public class JpaMain {
 			member.setTeam(team);
 			entityManager.persist(member);
 
+			entityManager.flush();
+			entityManager.clear();
+
 			Member findMember = entityManager.find(Member.class, member.getId());
 			Team findTeam = findMember.getTeam();
 			System.out.println("**findTeam = " + findTeam.getName());
