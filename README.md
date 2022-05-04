@@ -336,6 +336,37 @@ on t.team_id = m.team_id;
 
 > 양뱡향 매핑시 가장 많이 하는 실수 
 - 연관관계 주인에 값을 입력하지 않음
-- 
 
+> 양방향 연관관계 매핑시, 양쪽 모두 값을 셋팅해줘야 한다.
+- 왜냐면, 1차캐싱에서 조회에 오기 때문이다.
+- 순수 객체 상태 고려!
+- 코드 작성 시 잊어버릴 수 있으므로 편의 메서드를 생성한다. 
+  - Member에서 setTeam() 할 때, `team.getMembers().add(this);` 를 해준다.
+```java
+try {
+			Team team = new Team();
+			team.setName("TeamA");
+			entityManager.persist(team);
+
+			Member member1 = new Member();
+			member1.setUserName("member1");
+			member1.setTeam(team);
+			entityManager.persist(member1);
+
+			team.getMembers().add(member1); //주인이 아닌쪽에도 데이터를 셋팅해줘야 35번 라인에서 값을 가져올 수 있다.
+			
+            // 이 작업을 해주면 db에 저장되므로 entityManager.find() 시 db에서 값을 가져오지만, 
+            // 해당 작업을 하지 않으면, 1차 캐시에서 데이터를 가져오므로 주인이 아닌쪽에도 데이터를 셋팅해줘야 한다.
+            // 특히 테스트코드 작성 시, 해당 부분은 유의 해야 한다.
+//			entityManager.flush();
+//			entityManager.clear();
+
+			Team findTeam = entityManager.find(Team.class, team.getId());
+			List<Member> members = findTeam.getMembers();
+
+			for (Member member : members) {
+				System.out.println("m = " + member.getUserName());
+			}
+
+```
 
