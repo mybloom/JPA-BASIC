@@ -10,7 +10,9 @@ import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.Lob;
+import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -34,6 +36,7 @@ public class Member {
 	@Column(name = "USER_NAME")
 	private String userName;
 
-	@Column(name = "TEAM_ID")
-	private Long teamId;
+	@ManyToOne
+	@JoinColumn(name = "TEAM_ID")
+	private Team team;
 }

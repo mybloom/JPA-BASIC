@@ -293,6 +293,13 @@ List<Member> members = entityManager.createQuery("select m from Member as m", Me
 
 ### 단방향 연관관계
 
+- Member에 Team을 연관관계 맺는다. 
+- @ManyToOne, @JoinColum을 지정해준다.
+```java
+	@ManyToOne
+	@JoinColumn(name = "TEAM_ID")
+	private Team team;
+```
 
 
 

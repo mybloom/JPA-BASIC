@@ -22,16 +22,16 @@ public class JpaMain {
 
 			Member member = new Member();
 			member.setUserName("member1");
-			member.setTeamId(team.getId()); //외래키 식별자를 직접 다룬다.
+			member.setTeam(team);
 			entityManager.persist(member);
 
 			Member findMember = entityManager.find(Member.class, member.getId());
-
-			Long findTeamId = findMember.getTeamId();
-			Team findTeam = entityManager.find(Team.class, findTeamId);
+			Team findTeam = findMember.getTeam();
+			System.out.println("**findTeam = " + findTeam.getName());
 
 			transaction.commit();
 		} catch (Exception e) {
+			e.printStackTrace();
 			transaction.rollback();
 		} finally {
 			entityManager.close();
