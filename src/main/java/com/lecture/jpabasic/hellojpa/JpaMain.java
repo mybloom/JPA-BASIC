@@ -17,17 +17,24 @@ public class JpaMain {
 		transaction.begin();
 
 		try {
-			Member member1 = new Member();
-			member1.setUserName("member1");
-			entityManager.persist(member1);
-
 			Team team = new Team();
 			team.setName("TeamA");
-			team.getMembers().add(member1); //member에 team이 저장되지 않는다.
 			entityManager.persist(team);
+
+			Member member1 = new Member();
+			member1.setUserName("member1");
+			member1.setTeam(team);
+			entityManager.persist(member1);
 
 			entityManager.flush();
 			entityManager.clear();
+
+			Team findTeam = entityManager.find(Team.class, team.getId());
+			List<Member> members = findTeam.getMembers();
+
+			for (Member member : members) {
+				System.out.println("m = " + member.getUserName());
+			}
 
 			transaction.commit();
 		} catch (Exception e) {
