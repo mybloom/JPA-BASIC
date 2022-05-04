@@ -149,4 +149,12 @@ List<Member> members = entityManager.createQuery("select m from Member as m", Me
 > 엔티티 등록
 - 트랜잭션을 지원하는 쓰기 지연
 - 커밋하는 순간 DB에 INSERT SQL을 보낸다.
-- 
+
+> 엔티티 수정 : 변경 감지
+- Dirty Check
+- 1차 캐시 : id와 entity, 스냅샷이 있다.
+- 영속성컨텍스트에서 db로 flush()할 때 엔티티와 스냅샷을 비교한다.
+- 1차 캐시 들어온 상태를 스냅샷이라고 한다.
+- 스냅샷과 엔티티의 속성이 다를 때 변경 감지하고 update query를 날린다.
+
+
