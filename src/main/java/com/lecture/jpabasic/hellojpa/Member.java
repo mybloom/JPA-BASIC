@@ -8,7 +8,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-@Entity
+@Entity(name = "MBR") //다른 패키지에 같은 객체가 있을 때나 사용
 @Getter
 @Setter
 @AllArgsConstructor

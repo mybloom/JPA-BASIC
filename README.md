@@ -177,6 +177,15 @@ List<Member> members = entityManager.createQuery("select m from Member as m", Me
 
 ## chap5 엔티티 매핑
 
+- 객체와 테이블 매핑
+- db스키마 자동 생성
+- 필드와 컬럼 매핑
+- 기본 키 매핑
+- 연관관계 매핑 : @ManyToOne , @JoinColumn
+
+> 객체와 테이블 매핑
+ - @Entity(name = "Member") //다른 패키지에 같은 객체가 있을 때나 사용
+ - 
 
  
 
