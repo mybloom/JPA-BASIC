@@ -237,6 +237,16 @@ List<Member> members = entityManager.createQuery("select m from Member as m", Me
 - clob
 - blob
 
+### 기본키 매핑
+
+- @Id : 직접 할당
+- @GeneratedValue : 자동 생성
+  - strategy = GenerationType.IDENTITY : 기본키 생성을 db에 위임하는 것
+  - SEQUENCE : 하이버네이트 시퀀스 전략
+
+### IDENTITY 전략
+
+
 
 
 
