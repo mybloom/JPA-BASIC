@@ -17,15 +17,13 @@ public class JpaMain {
 		transaction.begin();
 
 		try {
-			List<Member> members = entityManager.createQuery("select m from Member as m",
-					Member.class)
-				.setFirstResult(5)
-				.setMaxResults(8)
-				.getResultList();
 
-			for (Member member : members) {
-				System.out.println("member.name = " + member.getName());
-			}
+			Member member1= entityManager.find(Member.class, 1L);
+			Member member2= entityManager.find(Member.class, 1L);
+
+			System.out.println("member1 = " + member1.toString());
+			System.out.println("member2 = " + member2.toString());
+			System.out.println(member1 == member2);
 
 			transaction.commit();
 		}catch(Exception e){
