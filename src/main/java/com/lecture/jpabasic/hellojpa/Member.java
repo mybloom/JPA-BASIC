@@ -1,14 +1,14 @@
 package com.lecture.jpabasic.hellojpa;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-@Entity(name = "MBR") //다른 패키지에 같은 객체가 있을 때나 사용
+@Entity
 @Getter
 @Setter
 @AllArgsConstructor
@@ -17,5 +17,14 @@ public class Member {
 
 	@Id
 	private Long id;
+	@Column(unique = true, length = 10)
 	private String name;
+
+	@Override
+	public String toString() {
+		return "Member{" +
+			"id=" + id +
+			", name='" + name + '\'' +
+			'}';
+	}
 }

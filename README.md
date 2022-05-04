@@ -185,8 +185,40 @@ List<Member> members = entityManager.createQuery("select m from Member as m", Me
 
 > 객체와 테이블 매핑
  - @Entity(name = "Member") //다른 패키지에 같은 객체가 있을 때나 사용
- - 
 
- 
+
+> 데이터베이스 스키마 자동 생성
+- ddl을 애플리케이션 실행 시점에 자동 생성
+- 테이블 중심 -> 객체 중심
+- 이렇게 생성된 ddl은 개발 장비에서만 사용
+- 생성된 ddl은 운영서버에서는 사용하지 않거나, 적절히 다듬은 후 사용
+
+> 데이터베이스 스키마 자동생성 옵션
+
+- 실행 시점에 새로 테이블 만든다
+```xml
+<property name="hibernate.hbm2ddl.auto" value="create" />
+```
+- create : drop & create
+- create-drop : create 종료시점에 drop
+- update : 변경분만 반영 (alter table )
+- validate : 객체에 새로운 속성 추가 시, 엔티티와 테이블이 정상 매핑되었는지 확인.
+- none : 사용하지 않음.?
+
+> [주의] 데이터베이스 스키마 자동생성 주의
+- 운영장비에선 절대 create, create-drop, update 사용하면 안된다!
+- 테스트 서버는 update 또는 validate 만 사용
+- 개발 초기 단계는 create, update 유용 : 시스템이 자동으로 alter시키는 것은 위험하다. db가 lock 발생.
+- local 에서만 자유롭게 사용하고, staging,product에서는 사용하지 않음.
+
+> DDL 생성기능
+- table 생성 후 alter table로 제약 조건이 생성됨. 
+```java
+  @Column(unique = true, length = 10)
+  private String name;
+```
+
+
+
 
 
