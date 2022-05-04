@@ -1,5 +1,6 @@
 package com.lecture.jpabasic.hellojpa;
 
+import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
@@ -16,8 +17,13 @@ public class JpaMain {
 		transaction.begin();
 
 		try {
-			Member findMember = entityManager.find(Member.class, 1L);
-			findMember.setName("HelloJPA");
+			List<Member> members = entityManager.createQuery("select m from Member as m",
+					Member.class)
+				.getResultList();
+
+			for (Member member : members) {
+				System.out.println("member.name = " + member.getName());
+			}
 
 			transaction.commit();
 		}catch(Exception e){

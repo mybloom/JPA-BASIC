@@ -100,3 +100,17 @@ DB는 양쪽관계 참조가 가능하지만 , 객체는 한 방향으로 참조
   ```
 
 > 트랜잭션
+- EntityManagerFactory : 애플리케이션에서 1개
+- EnitityManager : 쓰레드간 공유하지 않는다. 사용하고 버려야 한다.
+- [중요] JPA는 모두 transaction안에서 실행해야 한다.
+
+> JPQL 
+- 가장 단순한 조회 방법
+- EntityManager.find()
+  - select 하는 대상이 테이블이 아니라 객체이다. 그래서 `Member`라고 적어줘야 한다
+```java
+List<Member> members = entityManager.createQuery("select m from Member as m", Member.class)
+				.getResultList();
+```
+- 어떤 장점이 있을까?
+  - 
