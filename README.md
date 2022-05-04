@@ -3,6 +3,8 @@
 인프런 김영한 JPA기본편을 보고 정리한 저장소입니다.
 
 
+---
+
 ## CHAP2 : JPA 소개 
 
 > 연관관계
@@ -56,6 +58,8 @@ DB는 양쪽관계 참조가 가능하지만 , 객체는 한 방향으로 참조
   - [me] 비즈니스 로직을 잘 알고, 그에 맞게 옵션을 설정하면 된다.
 
 `ORM은 객체와 DBMS 모두 잘 알아야 한다 `
+
+---
 
 ## chap3 JPA 시작하기 
 
@@ -118,6 +122,8 @@ List<Member> members = entityManager.createQuery("select m from Member as m", Me
   - 검색조건을 줄 때 db 방언에 맞춰서 쿼리를 생성해주며, 객체 단위를 가져오게 된다.
   - **객체 지향 sql이다.**
 
+---
+
 ## chap4 영속성 관리  - 내부 동작 방식
 
 > JPA에서 가장 중요한 2가지
@@ -174,6 +180,8 @@ List<Member> members = entityManager.createQuery("select m from Member as m", Me
 
 - em.detach(entity);
 - em.clear();
+
+---
 
 ## chap5 엔티티 매핑
 
@@ -256,7 +264,34 @@ List<Member> members = entityManager.createQuery("select m from Member as m", Me
 - `call next value for MEMBER_SEQ` 를 50개 쌓일 때까지 안해도 된다.
 - 여러 웹서버가 있어도 동시성 문제 없이 작동된다.
 
+---
 
+## chap6 연관관계 매핑 기초 
+
+- 객체와 테이블 연관관계 차이를 이해
+- 객체의 참조와 테이블의 외래키 매핑
+- 단방향, 양뱡향
+- 다중성 : 다대일, 일대다, 일대일, 다대다
+- 연관관계 주인 
+
+> 연관관계 필요한 이유
+- 객체지향 설계의 목표는 자율적인 객체들의 협력 공동체 만드는 것
+
+> 실습 
+- 객체를 테이블에 맞춰 모델링 : 외래키 식별자를 직접 다룬다.
+- 객체를 테이블에 맞추어 데이터 중심으로 모델링하면, 협력 관계를 만들 수 없다.
+```java
+            Team team = new Team();
+			team.setName("TeamA");
+			entityManager.persist(team);
+
+			Member member = new Member();
+			member.setUserName("member1");
+			member.setTeamId(team.getId()); //외래키 식별자를 직접 다룬다.
+			entityManager.persist(member);
+```
+
+### 단방향 연관관계
 
 
 

@@ -16,14 +16,19 @@ public class JpaMain {
 		transaction.begin();
 
 		try {
-			Member member = new Member();
-			member.setName("A");
-			member.setRoleType(RoleType.USER);
+			Team team = new Team();
+			team.setName("TeamA");
+			entityManager.persist(team);
 
-			System.out.println("=================================");
+			Member member = new Member();
+			member.setUserName("member1");
+			member.setTeamId(team.getId()); //외래키 식별자를 직접 다룬다.
 			entityManager.persist(member);
-			System.out.println("member.id = " + member.getId());
-			System.out.println("=================================");
+
+			Member findMember = entityManager.find(Member.class, member.getId());
+
+			Long findTeamId = findMember.getTeamId();
+			Team findTeam = entityManager.find(Team.class, findTeamId);
 
 			transaction.commit();
 		} catch (Exception e) {

@@ -8,7 +8,7 @@ import javax.persistence.Persistence;
 public class ShopMain {
 
 	public static void main(String[] args) {
-		EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("hello");
+		EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("shop");
 
 		EntityManager entityManager = entityManagerFactory.createEntityManager();
 

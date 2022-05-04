@@ -24,35 +24,16 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-@SequenceGenerator(
-	name = "MEMBER_SEQ_GENERATOR",
-	sequenceName = "MEMBER_SEQ", //매핑할 데이터베이스 시퀀스 이름
-	initialValue = 1, allocationSize = 100)
 public class Member {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.SEQUENCE,
-					generator = "MEMBER_SEQ_GENERATOR")
+	@GeneratedValue
+	@Column(name = "MEMBER_ID")
 	private Long id;
 
-	@Column(name = "name", nullable = false, updatable = false)
-	private String name;
+	@Column(name = "USER_NAME")
+	private String userName;
 
-	private Integer age;
-
-	@Enumerated(EnumType.STRING)
-//	@Enumerated(EnumType.ORDINAL)
-	private RoleType roleType;
-
-	@Temporal(TemporalType.TIMESTAMP)
-	private Date createDate;
-
-	@Temporal(TemporalType.TIMESTAMP)
-	private Date lastModifiedDate;
-
-	private LocalDate testLocalDate;
-	private LocalDateTime testLocalDateTime;
-
-	@Lob
-	private String description;
+	@Column(name = "TEAM_ID")
+	private Long teamId;
 }
