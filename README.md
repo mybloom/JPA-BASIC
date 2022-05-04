@@ -173,5 +173,9 @@ List<Member> members = entityManager.createQuery("select m from Member as m", Me
 
 ### 준영속 상태
 
+- em.detach(entity);
+- em.clear();
+
+ 
 
 

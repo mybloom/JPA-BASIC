@@ -21,8 +21,10 @@ public class JpaMain {
 			Member member1 = entityManager.find(Member.class, 1L);
 			member1.setName("AAA");
 
-			entityManager.detach(member1);
+			entityManager.clear();
 			System.out.println("=======");
+
+			Member member2 = entityManager.find(Member.class, 1L);
 
 			transaction.commit();
 		}catch(Exception e){
