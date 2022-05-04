@@ -17,13 +17,13 @@ public class JpaMain {
 		transaction.begin();
 
 		try {
+			//영속
+			Member member1 =  new Member(3L, "member3");
+			Member member2 =  new Member(4L, "member4");
 
-			Member member1= entityManager.find(Member.class, 1L);
-			Member member2= entityManager.find(Member.class, 1L);
-
-			System.out.println("member1 = " + member1.toString());
-			System.out.println("member2 = " + member2.toString());
-			System.out.println(member1 == member2);
+			entityManager.persist(member1);
+			entityManager.persist(member2);
+			System.out.println("=======");
 
 			transaction.commit();
 		}catch(Exception e){
