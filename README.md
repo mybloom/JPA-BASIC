@@ -26,6 +26,10 @@ DB는 양쪽관계 참조가 가능하지만 , 객체는 한 방향으로 참조
 - JPA는 인터페이스의 모음이다. 
 - JPA 표준 명세를 구현한 3가지 구현제
   - 하이버네이트, 등등
+  - 인터페이스의 구현체로 하이버네이트 사용.
+  - implementation 'org.hibernate:hibernate-entitymanager'
+  - 하이버네이트가 jpa인터페이스를 가지고 있다.
+  - javax.persistence-api
 
 > 생산성
 - 저장 : jpa.persist(member)
@@ -53,5 +57,30 @@ DB는 양쪽관계 참조가 가능하지만 , 객체는 한 방향으로 참조
 
 `ORM은 객체와 DBMS 모두 잘 알아야 한다 `
 
+## chap3 JPA 시작하기 
 
+프로젝트 생성
+
+### persistence.xml
+> hibernate.dialect
+- 중요한 부분 
+- JPA는 특정 데이터베이스 종속적이지 않는다.
+- 그래서 SQL 표준 문법이 아닌 DB벤더에 따라 다른 점을 dialect(방언)이라 표현했다.
+  - 예) mysql : limit, Oracle: rownum
+- 그러므로 아래 설정은, H2 방언(dialect)을 사용했다는 것을 표시한 것이다.
+```xml
+ <property name="hibernate.dialect" value="org.hibernate.dialect.H2Dialect"/>
+```
+
+### javax.persistence 속성
+- javax라는 것은 JPA구현체를 하이버네이트를 사용하지 않아도 사용할 수 있는 것이다.
+- 표준 옵션
+
+```xml
+ <property name="javax.persistence.jdbc.driver" value="org.h2.Driver"/>
+ <property name="javax.persistence.jdbc.user" value="sa"/>
+ <property name="javax.persistence.jdbc.password" value=""/>
+ <property name="javax.persistence.jdbc.url" value="jdbc:h2:tcp://localhost/~/jpabasic"/>
+ <property name="hibernate.dialect" value="org.hibernate.dialect.H2Dialect"/>
+```
 
