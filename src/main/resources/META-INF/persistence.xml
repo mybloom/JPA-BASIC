@@ -12,6 +12,7 @@
     <class>com.lecture.jpabasic.hellojpa.Team</class>
     <class>com.lecture.jpabasic.hellojpa.Member</class>
     <class>com.lecture.jpabasic.hellojpa.Locker</class>
+    <class>com.lecture.jpabasic.hellojpa.Product</class>
     <properties>
       <!-- 필수 속성 -->
       <property name="javax.persistence.jdbc.driver" value="org.h2.Driver"/>
