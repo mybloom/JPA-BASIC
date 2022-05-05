@@ -1,5 +1,6 @@
 package com.lecture.jpabasic.hellojpa;
 
+import com.fasterxml.jackson.databind.ser.Serializers.Base;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -23,7 +24,7 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class Member {
+public class Member extends BaseEntity {
 
 	@Id
 	@GeneratedValue

@@ -462,7 +462,7 @@ Member member1 = new Member();
 ## chap8 고급매핑
 
 - 상속관계 매핑
-- Mapped SUperclass
+- MappedSuperclass
 
 ### 상속관계 매핑
 
@@ -593,3 +593,26 @@ where
 > 상속관계 매핑 정리
 - 관계형 DB에는 상속관계가 없다. 
 - 김영한님은 보통은 조인테이블 전략 사용하고, 비즈니스적으로 단순할 경우 단일 테이블 전략을 사용했다.
+
+### @MappedSuperclass
+
+- 공통 매핑 정보가 필요할 때 사용
+  - 보통 생성일, 수정일, 생성자, 수정자 등
+  - 추후, JPA 이벤트 기능을 사용해서 자동으로 넣어줄 수 있다.
+- DB는 완전히 다른데 객체 입장에서 속성만 상속받아 사용하고 싶은 경우. 
+
+```java
+@MappedSuperclass
+@Getter
+@Setter
+public class BaseEntity {
+
+	private String createdBy;
+	private LocalDateTime createdDate;
+	private String lastModifiedBy;
+	private LocalDateTime lastModifiedDate;
+
+}
+```
+
+

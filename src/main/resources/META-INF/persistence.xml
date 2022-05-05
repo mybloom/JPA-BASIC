@@ -11,10 +11,11 @@
     <class>com.lecture.jpabasic.shop.Category</class>
   </persistence-unit>
   <persistence-unit name="hello"><!--엔티티 클래스 인식하도록 설정-->
-<!--    <class>com.lecture.jpabasic.hellojpa.Team</class>-->
-<!--    <class>com.lecture.jpabasic.hellojpa.Member</class>-->
-<!--    <class>com.lecture.jpabasic.hellojpa.Locker</class>-->
-<!--    <class>com.lecture.jpabasic.hellojpa.Product</class>-->
+    <class>com.lecture.jpabasic.hellojpa.BaseEntity</class>
+    <class>com.lecture.jpabasic.hellojpa.Team</class>
+    <class>com.lecture.jpabasic.hellojpa.Member</class>
+    <class>com.lecture.jpabasic.hellojpa.Locker</class>
+    <class>com.lecture.jpabasic.hellojpa.Product</class>
     <class>com.lecture.jpabasic.hellojpa.Item</class>
     <class>com.lecture.jpabasic.hellojpa.Album</class>
     <class>com.lecture.jpabasic.hellojpa.Book</class>
