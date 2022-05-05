@@ -28,8 +28,8 @@ public class JpaMain {
 			entityManager.flush();
 			entityManager.clear();
 
-			Movie findMovie = entityManager.find(Movie.class, movie.getId());
-			System.out.println("findMovie = " + findMovie);
+			Item item = entityManager.find(Item.class, movie.getId());
+			System.out.println("item = " + item);
 
 			transaction.commit();
 		} catch (Exception e) {

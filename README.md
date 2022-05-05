@@ -497,7 +497,8 @@ Member member1 = new Member();
      ```
 
 > 단일 테이블 전략
-- 기본은 단일 테이블 전략
+- 기본은 단일 테이블 전략 
+- @Inheritance(strategy = InheritanceType.SINGLE)
 - 옵션을 주지 않았을 때 ITEM 단일 테이블로 생긴다.
 - 조인테이블로 갔다가 성능테스트시 성능이 안나올경우, 단일 테이블 전략을 선택하기도 한다.
 ```sql
@@ -513,4 +514,64 @@ Member member1 = new Member();
         director varchar(255),
         primary key (id)
     )
+```
+
+> 구현 클래스마다 테이블 전략
+- 각 테이블을 묶는 ITEM 테이블이 없다. 그러므로 각 Album, Movie, Book 에 Item 클래스의 속성들이 중복 컬럼으로 들어간다.
+- @Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
+- 데이터 넣을 때는 깔끔하게 한 테이블에 넣지만
+- 단점 : 조회시에는 union 으로 3개의 테이블 모두 조인해야 한다.
+```sql
+    select
+        item0_.id as id1_2_0_,
+        item0_.name as name2_2_0_,
+        item0_.price as price3_2_0_,
+        item0_.artist as artist1_0_0_,
+        item0_.author as author1_1_0_,
+        item0_.isbn as isbn2_1_0_,
+        item0_.actor as actor1_3_0_,
+        item0_.director as director2_3_0_,
+        item0_.clazz_ as clazz_0_ 
+    from
+        ( select
+            id,
+            name,
+            price,
+            artist,
+            null as author,
+            null as isbn,
+            null as actor,
+            null as director,
+            1 as clazz_ 
+        from
+            Album 
+        union
+        all select
+            id,
+            name,
+            price,
+            null as artist,
+            author,
+            isbn,
+            null as actor,
+            null as director,
+            2 as clazz_ 
+        from
+            Book 
+        union
+        all select
+            id,
+            name,
+            price,
+            null as artist,
+            null as author,
+            null as isbn,
+            actor,
+            director,
+            3 as clazz_ 
+        from
+            Movie 
+    ) item0_ 
+where
+    item0_.id=?
 ```
