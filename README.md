@@ -472,6 +472,7 @@ Member member1 = new Member();
 3. 구현 클래스마다 테이블 전략 : 중복이 발생해도 묶이는 테이블 없이 각각을 테이블로 생성
 
 - DB가 어떤 전략이던 JPA는 다 매핑할 수 있도록 지원한다.
+- DB 설계가 변경되어도 소스 변경이 되지 않는다.
 
 > JOINED : 조인테이블 형태로 매핑
 - @Inheritance(strategy = InheritanceType.JOINED)
@@ -495,3 +496,21 @@ Member member1 = new Member();
           movie0_.id=?
      ```
 
+> 단일 테이블 전략
+- 기본은 단일 테이블 전략
+- 옵션을 주지 않았을 때 ITEM 단일 테이블로 생긴다.
+- 조인테이블로 갔다가 성능테스트시 성능이 안나올경우, 단일 테이블 전략을 선택하기도 한다.
+```sql
+    create table Item (
+       DTYPE varchar(31) not null,
+        id bigint not null,
+        name varchar(255),
+        price integer not null,
+        artist varchar(255),
+        author varchar(255),
+        isbn varchar(255),
+        actor varchar(255),
+        director varchar(255),
+        primary key (id)
+    )
+```
