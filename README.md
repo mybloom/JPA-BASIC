@@ -694,4 +694,8 @@ public class Member {
 - 즉시로딩으로 설정되어 있어서 JPQL의 SQL 이외의 Team 관련 쿼리가 발생된다.
   - 심지어 Member의 수만큼 Team 조회 쿼리가 발생한다.
   - LAZY로 세팅할 경우는 발생하지 않음.
-- 
+
+> JPQL에서 `N+1`의 문제 해결법
+- 모든 연관관계를 지연로딩으로 세팅 한 후 아래 3가지 방법이 있다.
+1. JPQL의 fetch join 사용 - 동적으로 원하는 쿼리 사용. case by case로 사용하기 위해 
+2. 
