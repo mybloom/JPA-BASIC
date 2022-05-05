@@ -27,6 +27,10 @@ public class JpaMain {
 			entityManager.flush();
 			entityManager.clear();
 
+			//프록시
+			Member findMember = entityManager.getReference(Member.class, member.getId());
+			System.out.println("findMember.username = " + findMember.getUserName());
+
 			transaction.commit();
 		} catch (Exception e) {
 			e.printStackTrace();

@@ -622,5 +622,42 @@ public class BaseEntity {
 - 애플리케이션이 커지면 복잡해질 때 사용자 많아질 때 테이블 단순하게 유지한다.
   - json으로 말아 넣자고 하는 경우도 있다. : album, book, movie같은 객체를
 
+---
+
+## chap9 프록시와 연관관계 정리
+
+> 프록시
+- Member를 조회할 때 Team도 조회해야 할까?
+- em.find() vs em.getReference()
+  - em.getReference(): 데이터베이스 조회를 미루는 가짜(프록시) 엔티티 객체 조회
+- 프록시 객체 메커니즘은 JPA 표준이 아니라 구현체마다 각기 다른 방식으로 되어 있다. 
+  - 지금 예제에서는 하이버네이트를 알아본 것 
+
+> 프록시 특징
+- 하이버네이트 내부적으로 실제 엔티티를 상속받아서 생성된다. 
+  - 즉, 타입체크 시 주의해야 한다. 
+  - == 비교 실패, instanceof 사용한다!
+  - 즉, `refMember instanceof Member`
+- 실제 객체의 참조(target)를 멤버 변수로 갖고 있다.
+- 영속성 컨텍스트에 엔티티가 이미 있으면 getReference() 호출해도 엔티티가 반환된다.
+  - 엔티티와 프록시 == 비교 true
 
 
+- **getName() 했을 때 프로세스**
+  - 영속성 컨텍스트에 `초기화` 요청한다. : `초기화는 1번만 수행`  
+    - 초기화 : 실제 엔티티 객체를 영속성 컨텍스트에 db조회해서 생성한다.
+    - 초기화1번만 수행한다는 것을 기억해야 한다 : 초기화 후 clear() 시 다시 초기화하지 못한다.    
+  - 영속성 컨텍스트의 엔티티에서 getName()을 가져온다.
+```java
+Member member  = em.getReference(Member.class , "id1");
+member.getName(); //target에 있는 엔티티를 직접 조회한다.
+```
+
+> 프록시 확인
+- 프록시 인스턴스의 초기화 여부 확인
+  - PersistenceUnitUtil.isLoaded(Object entity)
+- 프록시 강제 초기화
+  - JPA표준에서는 없고, 하이버네이트에서 지원
+  - Hibernate.initialize(entity);
+- 프록시 클래스 확인 방법
+  - entity.getClass().getName() 출력 
