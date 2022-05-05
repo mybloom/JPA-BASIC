@@ -734,3 +734,8 @@ private List<Child> childList = new ArrayList<>();
 private List<Child> childList = new ArrayList<>();
 ```
 
+> 영속성 전이 + 고아 객체 생명주기
+- 두 옵션을 모두 활성화하면 부모 엔티티를 통해 자식 생명 주기를 관리할 수 있다.
+- DDD의 Aggregate root 개념을 구현할 때 유용
+
+

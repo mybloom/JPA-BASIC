@@ -2,6 +2,7 @@ package com.lecture.jpabasic.hellojpa;
 
 import java.util.ArrayList;
 import java.util.List;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -22,7 +23,7 @@ public class Parent {
 
 	private String name;
 
-	@OneToMany(mappedBy = "parent", orphanRemoval = true)
+	@OneToMany(mappedBy = "parent",cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<Child> childList = new ArrayList<>();
 
 	public void addChild(Child child) {
