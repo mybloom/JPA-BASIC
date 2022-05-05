@@ -17,10 +17,19 @@ public class JpaMain {
 		transaction.begin();
 
 		try {
+			Movie movie = new Movie();
+			movie.setDirector("감독님");
+			movie.setActor("배우");
+			movie.setName("바람과함께 사라지다");
+			movie.setPrice(10000);
 
-			Member member1 = new Member();
-			member1.setUserName("member1");
-			entityManager.persist(member1);
+			entityManager.persist(movie);
+
+			entityManager.flush();
+			entityManager.clear();
+
+			Movie findMovie = entityManager.find(Movie.class, movie.getId());
+			System.out.println("findMovie = " + findMovie);
 
 			transaction.commit();
 		} catch (Exception e) {

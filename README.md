@@ -457,6 +457,41 @@ Member member1 = new Member();
   - 새로운 id를 pk로 만들어 사용.
   - jpa매핑도 좋고, 애플리케이션 개발에 더 유용했다. 
 
+---
 
-  
+## chap8 고급매핑
+
+- 상속관계 매핑
+- Mapped SUperclass
+
+### 상속관계 매핑
+
+> DB 전략
+1. 조인전략 : 정규화 된 방식
+2. 단일 테이블 전략 : 성능 때문에 이렇게 하기도 한다. 객체는 상속관계로 되어 있기도 하다
+3. 구현 클래스마다 테이블 전략 : 중복이 발생해도 묶이는 테이블 없이 각각을 테이블로 생성
+
+- DB가 어떤 전략이던 JPA는 다 매핑할 수 있도록 지원한다.
+
+> JOINED : 조인테이블 형태로 매핑
+- @Inheritance(strategy = InheritanceType.JOINED)
+- @DiscriminatorColumn(name = "DIS_TYPE")
+  - 기본 DTYPE : 어느 테이블에서 들어온 것인지 알기 위해 DiscriminatorColumn를 해준다.
+  - name 옵션  : 자동으로는 DTYPE으로 들어왔는데 컬럼명을 명시해 줄 수 있다.
+  - 조회시 inner join으로 데이터 가져오는 것 확인
+  ```sql
+      select
+          movie0_.id as id1_2_0_,
+          movie0_1_.name as name2_2_0_,
+          movie0_1_.price as price3_2_0_,
+          movie0_.actor as actor1_3_0_,
+          movie0_.director as director2_3_0_ 
+      from
+          Movie movie0_ 
+      inner join
+          Item movie0_1_ 
+              on movie0_.id=movie0_1_.id 
+      where
+          movie0_.id=?
+     ```
 
