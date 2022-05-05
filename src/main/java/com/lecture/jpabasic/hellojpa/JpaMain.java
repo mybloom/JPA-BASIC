@@ -1,6 +1,7 @@
 package com.lecture.jpabasic.hellojpa;
 
 import java.time.LocalDateTime;
+import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
@@ -25,6 +26,10 @@ public class JpaMain {
 			entityManager.persist(member);*/
 			entityManager.persist(team); //이걸 꼭 해줘야 한다!
 
+			Team team2 = new Team();
+			team2.setName("TEAMb");
+			entityManager.persist(team2);
+
 
 			Member member = new Member();
 			member.setUserName("사용자");
@@ -33,15 +38,18 @@ public class JpaMain {
 			member.setTeam(team);
 			entityManager.persist(member);
 
+			Member member2 = new Member();
+			member2.setUserName("사용자2");
+			member2.setCreatedBy("홍길동2");
+			member2.setCreatedDate(LocalDateTime.now());
+			member2.setTeam(team2);
+			entityManager.persist(member2);
+
 			entityManager.flush();
 			entityManager.clear();
 
-			Member findMember = entityManager.find(Member.class, member.getId());
-			System.out.println("findMember = " + findMember.getTeam().getClass());
-
-			System.out.println("===============");
-			System.out.println("team.name = " +findMember.getTeam().getName());
-			System.out.println("===============");
+			List<Member> members = entityManager.createQuery("select m from Member m", Member.class)
+									.getResultList();
 
 			transaction.commit();
 		} catch (Exception e) {
