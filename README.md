@@ -703,3 +703,34 @@ public class Member {
 2. 엔티티그래프? 라는 애노테이션 사용
 3. 배치 사이즈라고 하는 방법 - 쿼리가 1+1 
 
+### 영속성 전이 CASCADE 
+
+- 부모 엔티티를 저장할 때 자식 엔티티도 함께 저장
+- `entityManager.persist(parent)` 할 때 , child도 persist 되었으면 할 때 사용
+- parent가 child를 관리해줬으면 할 때 사용 
+- 연관관계 매핑하는 것과 아무 상관 없음
+
+```java
+entityManager.persist(parent); // child도 persist 되었으면 할 때 사용
+entityManager.persist(child1);
+entityManager.persist(child2);
+```
+
+- `cascade = CascadeType.ALL` 사용.
+- 옵션은 ALL, PERSIST(저장할 때만) 정도 사용
+```
+@OneToMany(mappedBy = "parent", cascade = CascadeType.ALL)
+private List<Child> childList = new ArrayList<>();
+```
+
+### 고아 객체
+
+- Parent 컬렉션에서 빠진 Child는 db에서 delete된다.
+- 참조하는 곳이 하나일 때 사용해야 한다.
+- 부모 제거하면 자식은 고아가 되기 때문에 객체제거기능 활성화하면, 부모 제거할 때 자식도 함께 삭제 된다. 
+- CascadeType.REMOVE 처럼 동작
+```java
+@OneToMany(mappedBy = "parent", cascade = CascadeType.ALL, orphanRemoval = true)
+private List<Child> childList = new ArrayList<>();
+```
+
