@@ -17,8 +17,11 @@ public class ShopMain {
 		transaction.begin();
 
 		try {
-			Order order = new Order();
-			order.addOrderItem(new OrderItem());
+			Book book = new Book();
+			book.setName("JPA");
+			book.setAuthor("kyh");
+
+			entityManager.persist(book);
 
 			transaction.commit();
 		} catch (Exception e) {
