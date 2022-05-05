@@ -4,7 +4,6 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
 import javax.persistence.Persistence;
-import org.aspectj.weaver.ast.Or;
 
 public class ShopMain {
 
@@ -17,11 +16,6 @@ public class ShopMain {
 		transaction.begin();
 
 		try {
-			Book book = new Book();
-			book.setName("JPA");
-			book.setAuthor("kyh");
-
-			entityManager.persist(book);
 
 			transaction.commit();
 		} catch (Exception e) {
