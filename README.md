@@ -670,6 +670,7 @@ member.getName(); //target에 있는 엔티티를 직접 조회한다.
 - Member를 조회할 때 Team도 조회해야 할까?
 - Team은 실제 사용 시점에 조회할 수 있도록 `지연로딩`으로 셋팅한다.
 - member.getTeam().getName() : getName()할 때 로딩된다.
+- 2번에 나눠서 로딩되므로 쿼리가 2개로 나뉜다.
 ```java
 public class Member {
   @ManyToOne(fetch = FetchType.LAZY)
@@ -678,3 +679,7 @@ public class Member {
 }
 ```
 
+> 즉시로딩
+- Member 와 Team을 항상 같이 조회한다면?
+- @ManyToOne(fetch = FetchType.EAGER)
+- 조회시 쿼리를 조인해서 1번에 가져온다.

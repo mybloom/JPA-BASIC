@@ -40,7 +40,7 @@ public class JpaMain {
 			System.out.println("findMember = " + findMember.getTeam().getClass());
 
 			System.out.println("===============");
-			findMember.getTeam().getName();
+			System.out.println("team.name = " +findMember.getTeam().getName());
 			System.out.println("===============");
 
 			transaction.commit();
