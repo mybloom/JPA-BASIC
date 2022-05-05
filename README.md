@@ -626,6 +626,8 @@ public class BaseEntity {
 
 ## chap9 프록시와 연관관계 정리
 
+### 프록시
+
 > 프록시
 - Member를 조회할 때 Team도 조회해야 할까?
 - em.find() vs em.getReference()
@@ -660,4 +662,19 @@ member.getName(); //target에 있는 엔티티를 직접 조회한다.
   - JPA표준에서는 없고, 하이버네이트에서 지원
   - Hibernate.initialize(entity);
 - 프록시 클래스 확인 방법
-  - entity.getClass().getName() 출력 
+  - entity.getClass().getName() 출력
+
+### 즉시로딩과 지연로딩
+
+> 지연로딩
+- Member를 조회할 때 Team도 조회해야 할까?
+- Team은 실제 사용 시점에 조회할 수 있도록 `지연로딩`으로 셋팅한다.
+- member.getTeam().getName() : getName()할 때 로딩된다.
+```java
+public class Member {
+  @ManyToOne(fetch = FetchType.LAZY)
+  @JoinColumn
+  private Team team;
+}
+```
+
